@@ -22,8 +22,15 @@ customElements.define(
       this.login(email, password);
     }
 
-    login (email, password) {
+    login(email, password) {
       // Add login method here
+      Parse.User.logIn(email, password)
+        .then(user => {
+          window.location.href = 'index.html';
+        })
+        .catch(e => {
+          alert(e.message);
+        });
     }
   }
 );

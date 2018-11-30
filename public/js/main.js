@@ -98,15 +98,22 @@ customElements.define(
 
     fetchTickets() {
       // PART 1: API ENDPOINT FOR FETCHING TICKETS
+      return Parse.Cloud.run('tickets:list');
     }
 
     fetchEvents() {
+      return Parse.Cloud.run('events:list');
     }
 
     listTicket(contactMethod, ticketPrice, eventId) {
       /**
        * ADD TICKET CODE
        */
+      return Parse.Cloud.run('tickets:create', {
+        contactMethod,
+        ticketPrice,
+        eventId
+      });
     }
 
     setTickets() {
@@ -148,9 +155,11 @@ customElements.define(
     }
 
     logout() {
-     /**
-      * Log out using Parse method
-      */
+      Parse.User.logOut()
+        .catch(() => {})
+        .then(() => {
+          window.location.href = 'login.html';
+        });
     }
   }
 );

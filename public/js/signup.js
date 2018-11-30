@@ -40,9 +40,11 @@ customElements.define(
     }
 
     signup(email, password, phone) {
-      /**
-       * Parse Signup method
-       */
+      Parse.Cloud.run('user:signup', {
+        email,
+        password,
+        phone
+      });
     }
   }
 );
