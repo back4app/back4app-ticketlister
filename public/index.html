@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>edit-word demo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/2.1.0/parse.min.js"></script>
+  <script src="js/parse.js"></script>
+
+  <script src="js/main.js" defer></script>
+
+</head>
+
+<body>
+  <template id="main-template">
+    <style>
+      @import "css/bootstrap.min.css";
+      .new-event-card {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+    <div id="wrapper" style="display: none;">
+      <nav-bar></nav-bar>
+
+      <div class="card card-body new-event-card">
+        <form id="newTicketForm">
+          <div class="form-group">
+            <label for="eventSelect"></label>
+            <select name="event" required class="form-control" id="eventSelect">
+              <option value="" disabled selected>Please select an event</option>
+              <!-- <option value="alsdkfjalksdf">Bears @ Colts (12/02/2018)</option>
+              <option value="aisodfjknasdf">Bears @ Ravens (12/09/2018)</option>
+              <option value="xmzcvndifhlkd">Bears @ Packers (12/16/2018)</option>
+              <option>Bears @ Bills (12/23/2018)</option> -->
+            </select>
+          </div>
+          <div class="form-group">
+            <div required class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="dollar-addon">$</span>
+              </div>
+              <input id="priceInput" name="ticketPrice" required step=".01" type="number" class="form-control"
+                placeholder="Price" aria-label="Price" aria-describedby="dollar-addon">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input required class="form-check-input" type="radio" name="contactMethod" id="contactMethod3" value="both">
+              <label class="form-check-label" for="contactMethod3">
+                Phone OR Email
+              </label>
+            </div>
+            <div class="form-check">
+              <input required class="form-check-input" type="radio" name="contactMethod" id="contactMethod1" value="phone">
+              <label class="form-check-label" for="contactMethod1">
+                Phone
+              </label>
+            </div>
+            <div class="form-check">
+              <input required class="form-check-input" type="radio" name="contactMethod" id="contactMethod2" value="email">
+              <label class="form-check-label" for="contactMethod2">
+                Email
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">List ticket</button>
+        </form>
+      </div>
+
+      <div id="tickets">
+
+      </div>
+    </div>
+  </template>
+  <template id="ticket-listing">
+    <style>
+      @import "css/bootstrap.min.css";
+      /* @import 'https://use.fontawesome.com/releases/v5.5.0/css/all.css'; */
+
+      .ticket-listing-card {
+        max-width: 600px;
+      }
+    </style>
+
+    <div class="card mt-2 ticket-listing-card mx-auto">
+      <div class="card-header" id="event">
+        Bears @ Colts
+      </div>
+      <div class="card-body">
+        <p id="ticket-price"> </p>
+        <p> <a id="telephone"> </a></p>
+        <p> <a id="email"> </a> </p>
+      </div>
+    </div>
+  </template>
+  <template id="nav-bar">
+    <style>
+      @import "css/bootstrap.min.css";
+      /* @import 'https://use.fontawesome.com/releases/v5.5.0/css/all.css'; */
+
+      .ticket-listing-card {
+        max-width: 600px;
+      }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+      <a class="navbar-brand" href="#">Ticket Swap</a>
+      <div class="ml-auto">
+        <button id="logoutButton" class="btn btn-secondary"> Logout </button>
+      </div>
+    </nav>
+  </template>
+  <main-app></main-app>
+
+
+</body>
+
+</html>
