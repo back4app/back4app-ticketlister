@@ -2,6 +2,7 @@
 
 Parse.initialize(
   '', // YOUR APP ID 
-  '' // YOUR SERVER KEY
+  '' // YOUR Javascript  KEY
 );
+// YOUR SERVER URL
 Parse.serverURL = '';
