@@ -24,43 +24,43 @@ Parse.Cloud.define(
   }
 );
 
-    /**
-     * retrieves tickets
-     */
-    Parse.Cloud.define('tickets:list', async ({ user }) => {
-        // Requires that a user be logged in to do anything
-    requireAuth(user);
-    const { Query } = Parse;
-    const eventQ = new Query(EVENT).greaterThan('when', new Date());
-    //   Query tickets for events that haven't yet happend
-    const tickets = await new Query(TICKET)
-        .matchesQuery('event', eventQ)
-        .include('event')
-        .include('user')
-        .descending('createdAt')
-        .find(MASTER_KEY);
+/**
+ * retrieves tickets
+ */
+Parse.Cloud.define('tickets:list', async ({ user }) => {
+  // Requires that a user be logged in to do anything
+  requireAuth(user);
+  const { Query } = Parse;
+  const eventQ = new Query(EVENT).greaterThan('when', new Date());
+  //   Query tickets for events that haven't yet happend
+  const tickets = await new Query(TICKET)
+    .matchesQuery('event', eventQ)
+    .include('event')
+    .include('user')
+    .descending('createdAt')
+    .find(MASTER_KEY);
 
-        // Build a response object that contains all the data we want
-    return tickets.map(t => {
-        let phone, email;
-        const contactmethod = t.get('contactMethod');
-        if (contactmethod === 'both' || contactmethod === 'phone') {
-        phone = t.get('user').get('phone');
-        }
-        if (contactmethod === 'both' || contactmethod === 'email') {
-        email = t.get('user').getEmail();
-        }
-        /**
-         * For this API response, return an object that merges the ticket with the event, with the
-         * user's phone and email ** phone or email may be undefined, but one will exist **
-         */
-        return Object.assign({}, t.toJSON(), {
-        event: t.get('event').toJSON(),
-        phone,
-        email
-        });
+  // Build a response object that contains all the data we want
+  return tickets.map(t => {
+    let phone, email;
+    const contactmethod = t.get('contactMethod');
+    if (contactmethod === 'both' || contactmethod === 'phone') {
+      phone = t.get('user').get('phone');
+    }
+    if (contactmethod === 'both' || contactmethod === 'email') {
+      email = t.get('user').getEmail();
+    }
+    /**
+     * For this API response, return an object that merges the ticket with the event, with the
+     * user's phone and email ** phone or email may be undefined, but one will exist **
+     */
+    return Object.assign({}, t.toJSON(), {
+      event: t.get('event').toJSON(),
+      phone,
+      email
     });
-    });
+  });
+});
 
 /**
  * retrieves tickets
